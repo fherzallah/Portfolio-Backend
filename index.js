@@ -1,13 +1,16 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require('cors');
+const dotenv = require('dotenv')
+
 
 const app = express();
+dotenv.config()
 app.use('/uploads', express.static('uploads'));
 
 // Middleware
 app.use(cors({
-  origin: ["http://localhost:3001", "http://localhost:5173"],
+  origin: [process.env.ORIGIN1, process.env.ORIGIN2],
   method: ["GET", "POST", "DELETE", "PUT"],
   credentials: true,
 }));
@@ -19,7 +22,7 @@ const publicationsRoutes = require('./routes/publications');
 app.use(`/publications`, publicationsRoutes);
 
 // Database Connection and Server Setup
-mongoose.connect('mongodb+srv://ahmadbadran:thezone51@first-mongo.5kvh3pa.mongodb.net/?retryWrites=true&w=majority', {
+mongoose.connect( process.env.MONGO_URI, {
   dbName: "Dr-Fadi-Herzallah",
 })
 
@@ -27,7 +30,7 @@ mongoose.connect('mongodb+srv://ahmadbadran:thezone51@first-mongo.5kvh3pa.mongod
     console.log("Connected to database!");
 
     app.listen(3000, () => {
-      console.log("Server Is Running On Port 3000");
+      console.log(`Server Is Running On Port ${process.env.PORT || 3000}`);
     });
   })
   .catch((error) => {
