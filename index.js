@@ -10,7 +10,7 @@ app.use('/uploads', express.static('uploads'));
 
 // Middleware
 app.use(cors({
-  origin: [process.env.ORIGIN1, process.env.ORIGIN2],
+  origin: [process.env.ORIGIN1, process.env.ORIGIN2 , "https://fherzallah.github.io"],
   method: ["GET", "POST", "DELETE", "PUT"],
   credentials: true,
 }));
